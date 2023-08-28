@@ -18,7 +18,7 @@
 function ilkiniDon(stringArray, callback) {
   return callback(stringArray[0])
 }
-console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin+metin}));
+console.log('örnek görev:', ilkiniDon(['as', 'sa'], function (metin) { return metin + metin }));
 
 // Başlangıç Challenge'ı Sonu
 
@@ -30,17 +30,18 @@ console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin
   Aşağıdaki skor1 ve skor2 kodlarını inceleyiniz ve aşağıdaki soruları altına not alarak cevaplayın
   
   1. skor1 ve skor2 arasındaki fark nedir?
-  
+ // Skor1de değişken methodun içindeyken skor2de değişken methodun dışındadır(global).
   2. Hangisi bir closure kullanmaktadır? Nasıl tarif edebilirsin? (yarınki derste öğreneceksin :) )
-  
+  //skor1 closure kullanmaktadır. Skor güncelle methodu skor artırıcı methodu içindeki skor değerine erişebilmektedir.
   3. Hangi durumda skor1 tercih edilebilir? Hangi durumda skor2 daha mantıklıdır?
+   //skor1 bilgiye erişimin kısıtlı olması gereken durumlarda kullanılabilir(güvenlik sebebiyle).  
 */
 
 // skor1 kodları
 function skorArtirici() {
   let skor = 0;
   return function skorGuncelle() {
-   return skor++;
+    return skor++;
   }
 }
 
@@ -52,6 +53,7 @@ let skor = 0;
 function skor2() {
   return skor++;
 }
+console.log("skor2: " + skor);
 
 
 /* Görev 2: takimSkoru() 
@@ -64,8 +66,8 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru() {
+  return Math.floor(10 + Math.random() * 25) + 1;
 }
 
 
@@ -84,10 +86,21 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
   "EvSahibi": 92,
   "KonukTakim": 80
 }
-*/ 
+*/
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
+function macSonucu(takimSkoruCallback, ceyrek) {
+
+  let macSonucu = {
+    EvSahibi: 0,
+    KonukTakim: 0
+  };
+
+  for (let i = 0; i < ceyrek; i++) {
+    macSonucu.EvSahibi += takimSkoruCallback();
+    macSonucu.KonukTakim += takimSkoruCallback();
+
+  }
+  return macSonucu;
 }
 
 
@@ -109,8 +122,17 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   */
 
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+function periyotSkoru(callback) {
+  
+let periyotSonucu = {
+  EvSahibi : 0,
+  KonukTakim: 0
+};
+
+  periyotSonucu.EvSahibi = callback();
+  periyotSonucu.KonukTakim = callback();
+
+  return periyotSonucu;
 
 }
 
@@ -154,7 +176,7 @@ function skorTabelasi(/*Kodunuzu buraya yazınız*/) {
 
 
 /* Aşağıdaki satırları lütfen değiştirmeyiniz*/
-function sa(){
+function sa() {
   console.log('Kodlar çalışıyor');
   return 'as';
 }
